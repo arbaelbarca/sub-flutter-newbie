@@ -3,7 +3,7 @@ import 'package:sub_newbie_dicoding/home.dart';
 import 'package:sub_newbie_dicoding/login.dart';
 
 void main() {
-  runApp(const HomeApp("arba"));
+  runApp(const LoginApp());
 }
 
 class MyApp extends StatelessWidget {

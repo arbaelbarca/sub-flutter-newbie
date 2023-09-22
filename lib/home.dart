@@ -135,7 +135,7 @@ class _HomeAppState extends State<HomeApp> {
       openTime: '07:00 - 17:00',
       ticketPrice: 'Rp 15000',
       imageAsset:
-      'https://media-cdn.tripadvisor.com/media/photo-o/0b/6e/7c/ce/rocks-sticking-out-of.jpg',
+          'https://media-cdn.tripadvisor.com/media/photo-o/0b/6e/7c/ce/rocks-sticking-out-of.jpg',
       imageUrls: [
         'https://media-cdn.tripadvisor.com/media/photo-o/0b/6e/7c/ce/rocks-sticking-out-of.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-p/0b/35/30/14/white-crater.jpg',
@@ -151,7 +151,7 @@ class _HomeAppState extends State<HomeApp> {
       openTime: '24 hours',
       ticketPrice: 'Rp 20000',
       imageAsset:
-      'https://media-cdn.tripadvisor.com/media/photo-o/1a/e0/7f/9c/kampung-cai-ranca-upas.jpg',
+          'https://media-cdn.tripadvisor.com/media/photo-o/1a/e0/7f/9c/kampung-cai-ranca-upas.jpg',
       imageUrls: [
         'https://media-cdn.tripadvisor.com/media/photo-o/1a/e0/7f/9c/kampung-cai-ranca-upas.jpg',
         'https://media-cdn.tripadvisor.com/media/photo-w/13/ee/2f/87/ranca-upas.jpg',
@@ -169,29 +169,34 @@ class _HomeAppState extends State<HomeApp> {
           title: Text("Home"),
         ),
         body: SingleChildScrollView(
+          physics: ScrollPhysics(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
                 margin: EdgeInsets.only(top: 10, left: 15),
                 child: Text(
-                  "Hello ${widget.getName}",
+                  "Hi, ${widget.getName}",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(left: 15),
                 child: Text(
-                  "Hello, Selamat Datang di aplikasi wisata",
+                  "Welcome application tour wisata",
                   style: TextStyle(fontSize: 13),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 30, left: 15, right: 15),
-                child: SizedBox(
-                  height: double.maxFinite,
-                  child: ListView.builder(
+              SizedBox(
+                height: 20,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final itemTourism = tourismPlaceList[index];
                       return InkWell(
@@ -212,7 +217,8 @@ class _HomeAppState extends State<HomeApp> {
                                 flex: 1,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(7),
-                                  child: Image.network(itemTourism.imageAsset),
+                                  child:
+                                      Image.network(itemTourism.imageAsset),
                                 ),
                               ),
                               Expanded(
@@ -253,9 +259,9 @@ class _HomeAppState extends State<HomeApp> {
                       );
                     },
                     itemCount: tourismPlaceList.length,
-                  ),
-                ),
-              )
+                  )
+                ],
+              ),
             ],
           ),
         ),

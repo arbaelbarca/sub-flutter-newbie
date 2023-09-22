@@ -31,7 +31,11 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Stack(
                 children: [
-                  Image.network(tourismPlace.imageAsset),
+                  Image.network(
+                    tourismPlace.imageAsset,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                  ),
                   SafeArea(
                     child: Padding(
                         padding: EdgeInsets.all(3.0),
@@ -129,7 +133,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 padding: EdgeInsets.all(11),
                                 child: Column(
                                   children: [
-                                    Icon(Icons.date_range),
+                                    Icon(Icons.calendar_view_day_outlined),
                                     Container(
                                       margin: EdgeInsets.only(top: 10),
                                       child: Text(
@@ -160,7 +164,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 padding: EdgeInsets.all(11),
                                 child: Column(
                                   children: [
-                                    Icon(Icons.date_range),
+                                    Icon(Icons.price_change),
                                     Container(
                                       margin: EdgeInsets.only(top: 10),
                                       child: Text(
@@ -180,7 +184,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 15, top: 15),
+                margin: EdgeInsets.only(left: 20, top: 15),
                 child: Text(
                   "Detail Wisata",
                   textAlign: TextAlign.start,

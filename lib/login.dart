@@ -10,71 +10,102 @@ class LoginApp extends StatefulWidget {
 }
 
 class _LoginAppState extends State<LoginApp> {
-  String name = "";
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Login"),
-        ),
-        body: Center(
+      home: LoginPageNewContext(),
+    );
+  }
+}
+
+class LoginPageNewContext extends StatefulWidget {
+  const LoginPageNewContext({super.key});
+
+  @override
+  State<LoginPageNewContext> createState() => _LoginPageNewContextState();
+}
+
+class _LoginPageNewContextState extends State<LoginPageNewContext> {
+  final loginController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    // String name = widget.name;
+
+    String getEmpty = "";
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Login"),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height / 4,
+                left: 20,
+                right: 20,
+                bottom: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    "Welcome My Apps",
+                    "Welcome",
                     style: TextStyle(
                         fontSize: 30,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      TextField(
+                Column(
+                  children: [
+                    Container(
+                      child: TextFormField(
                         style: TextStyle(fontSize: 13),
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: "Masukan Nama Anda",
-                            labelText: "Nama Anda"),
+                            hintText: "Input your name",
+                            labelText: "Name"),
+                        validator: (value) {
+                          if (value!.isNotEmpty) {
+                            getEmpty = "Field not to be empty";
+                            loginController.text = value;
+                            return getEmpty;
+                          }
+                          return null;
+                        },
                         onChanged: (String value) {
-                          setState(() {
-                            name = value;
-                          });
+                          // name = value;
+                          loginController.text = value;
+                          setState(() {});
                         },
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 40,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return HomeApp(name);
-                              }));
-                              showToast("aaaahaha");
-                              print("mauulah");
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(fontSize: 13),
-                            ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomeApp(loginController.text);
+                            }));
+
+                            print("mauulah");
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(fontSize: 13),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),
@@ -95,42 +126,75 @@ class _LoginAppState extends State<LoginApp> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER);
   }
+
+  void validationEmpty(String value) {}
 }
 
 class ButtonSocialMedia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: const EdgeInsets.all(3.0),
-            child: const Icon(
-              Icons.facebook,
-              size: 50,
-              color: Colors.black,
+            margin: EdgeInsets.only(right: 10),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.network(
+                  "https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png"),
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 15, right: 15),
-            child: const Icon(
-              Icons.facebook,
-              size: 50,
-              color: Colors.black,
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child: InkWell(
+              onTap: () {
+                _dialogBuilder(context);
+                print("action dialog");
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.network(
+                    "https://w7.pngwing.com/pngs/561/460/png-transparent-fb-facebook-facebook-logo-social-media-icon.png"),
+              ),
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(3.0),
-            child: const Icon(
-              Icons.facebook,
-              size: 50,
-              color: Colors.black,
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.network(
+                  "https://cdn-icons-png.flaticon.com/512/25/25231.png"),
             ),
           )
         ],
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Information'),
+          content: const Text(
+            'The Feature Coming Soon',
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Exit'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }

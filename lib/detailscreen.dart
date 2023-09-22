@@ -2,19 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'model/tourism_place.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailScreen extends StatelessWidget {
   final TourismPlace tourismPlace;
 
   const DetailScreen(this.tourismPlace, {Key? key}) : super(key: key);
-
-  @override
-  State<DetailScreen> createState() => _DetailScreenState(this.tourismPlace);
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  final TourismPlace tourismPlace;
-
-  _DetailScreenState(this.tourismPlace);
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +107,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         Container(
                           margin: EdgeInsets.all(5.0),
                           child: Text(
-                            "Detail Waktu",
+                            "Detail Time",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 fontSize: 20,
@@ -129,50 +120,68 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.all(11),
-                                child: Column(
-                                  children: [
-                                    Icon(Icons.calendar_view_day_outlined),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        tourismPlace.openDays,
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    )
-                                  ],
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(11),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.calendar_view_day_outlined),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Center(
+                                          child: Text(
+                                            tourismPlace.openDays,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 12,),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(11),
-                                child: Column(
-                                  children: [
-                                    Icon(Icons.date_range),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: 10, left: 20, right: 20),
-                                      child: Text(
-                                        tourismPlace.openTime,
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    )
-                                  ],
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(11),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.date_range),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            top: 10, left: 20, right: 20),
+                                        child: Center(
+                                          child: Text(
+                                            tourismPlace.openTime,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(11),
-                                child: Column(
-                                  children: [
-                                    Icon(Icons.price_change),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        tourismPlace.ticketPrice,
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    )
-                                  ],
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(11),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.price_change),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Center(
+                                          child: Text(
+                                            tourismPlace.ticketPrice,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -186,7 +195,7 @@ class _DetailScreenState extends State<DetailScreen> {
               Container(
                 margin: EdgeInsets.only(left: 20, top: 15),
                 child: Text(
-                  "Detail Wisata",
+                  "Detail Picture",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 20,

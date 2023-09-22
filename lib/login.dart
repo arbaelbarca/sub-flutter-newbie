@@ -12,7 +12,7 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPageNewContext(),
     );
@@ -31,9 +31,6 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
 
   @override
   Widget build(BuildContext context) {
-    // String name = widget.name;
-
-    String getEmpty = "";
 
     return Scaffold(
       appBar: AppBar(
@@ -69,14 +66,6 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                             border: OutlineInputBorder(),
                             hintText: "Input your name",
                             labelText: "Name"),
-                        validator: (value) {
-                          if (value!.isNotEmpty) {
-                            getEmpty = "Field not to be empty";
-                            loginController.text = value;
-                            return getEmpty;
-                          }
-                          return null;
-                        },
                         onChanged: (String value) {
                           // name = value;
                           loginController.text = value;

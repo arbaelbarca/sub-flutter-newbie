@@ -3,16 +3,11 @@ import 'package:sub_newbie_dicoding/detailscreen.dart';
 
 import 'model/tourism_place.dart';
 
-class HomeApp extends StatefulWidget {
+class HomeApp extends StatelessWidget {
   final String getName;
 
-  const HomeApp(this.getName, {Key? key}) : super(key: key);
+  HomeApp(this.getName, {Key? key}) : super(key: key);
 
-  @override
-  State<HomeApp> createState() => _HomeAppState();
-}
-
-class _HomeAppState extends State<HomeApp> {
   var tourismPlaceList = [
     TourismPlace(
       name: 'Farm House Lembang',
@@ -177,7 +172,7 @@ class _HomeAppState extends State<HomeApp> {
               Container(
                 margin: EdgeInsets.only(top: 10, left: 15),
                 child: Text(
-                  "Hi, ${widget.getName}",
+                  "Hi, $getName",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -217,8 +212,7 @@ class _HomeAppState extends State<HomeApp> {
                                 flex: 1,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(7),
-                                  child:
-                                      Image.network(itemTourism.imageAsset),
+                                  child: Image.network(itemTourism.imageAsset),
                                 ),
                               ),
                               Expanded(

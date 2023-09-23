@@ -5,6 +5,7 @@ import 'model/tourism_place.dart';
 class DetailScreen extends StatelessWidget {
   final TourismPlace tourismPlace;
 
+
   const DetailScreen(this.tourismPlace, {Key? key}) : super(key: key);
 
   @override

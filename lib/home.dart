@@ -162,6 +162,12 @@ class HomeApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Home"),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
         body: SingleChildScrollView(
           physics: ScrollPhysics(),

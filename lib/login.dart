@@ -31,7 +31,6 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
@@ -129,17 +128,22 @@ class ButtonSocialMedia extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(right: 10),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.network(
-                  "https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png"),
+            child: InkWell(
+              onTap: () {
+                showDialogAlert(context);
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.network(
+                    "https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png"),
+              ),
             ),
           ),
           Container(
             margin: EdgeInsets.only(left: 10, right: 10),
             child: InkWell(
               onTap: () {
-                _dialogBuilder(context);
+                showDialogAlert(context);
                 print("action dialog");
               },
               child: CircleAvatar(
@@ -151,10 +155,15 @@ class ButtonSocialMedia extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(left: 10, right: 10),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Image.network(
-                  "https://cdn-icons-png.flaticon.com/512/25/25231.png"),
+            child: InkWell(
+              onTap: () {
+                showDialogAlert(context);
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Image.network(
+                    "https://cdn-icons-png.flaticon.com/512/25/25231.png"),
+              ),
             ),
           )
         ],
@@ -162,28 +171,23 @@ class ButtonSocialMedia extends StatelessWidget {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
+  void showDialogAlert(BuildContext context) {
+    showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Information'),
-          content: const Text(
-            'The Feature Coming Soon',
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Exit'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        );
-      },
+      builder: (ctx) => AlertDialog(
+        title: Text("Attention"),
+        content: Text("The feature coming soon"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: Container(
+              child: Text("Ok"),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

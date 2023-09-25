@@ -59,12 +59,35 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                 Column(
                   children: [
                     Container(
-                      child: TextFormField(
+                      child: TextField(
                         style: TextStyle(fontSize: 13),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.supervised_user_circle),
                             border: OutlineInputBorder(),
                             hintText: "Input your name",
                             labelText: "Name"),
+                        onChanged: (String value) {
+                          // name = value;
+                          loginController.text = value;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: TextField(
+                        style: TextStyle(fontSize: 13),
+                        obscureText: true,
+                        obscuringCharacter: "*",
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.remove_red_eye),
+                              onPressed: () {},
+                            ),
+                            border: OutlineInputBorder(),
+                            hintText: "Input your name",
+                            labelText: "Password"),
                         onChanged: (String value) {
                           // name = value;
                           loginController.text = value;
@@ -79,9 +102,9 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(context,
+                            Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return HomeApp(loginController.text);
+                              return Home(loginController.text);
                             }));
 
                             print("mauulah");
@@ -106,13 +129,6 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
         ),
       ),
     );
-  }
-
-  void showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER);
   }
 
   void validationEmpty(String value) {}

@@ -3,10 +3,18 @@ import 'package:sub_newbie_dicoding/detailscreen.dart';
 
 import 'model/tourism_place.dart';
 
-class HomeApp extends StatelessWidget {
+class Home extends StatefulWidget {
   final String getName;
 
-  HomeApp(this.getName, {Key? key}) : super(key: key);
+  Home(this.getName, {Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var isTypeList = false;
+  var IsLoading = false;
 
   var tourismPlaceList = [
     TourismPlace(
@@ -168,6 +176,27 @@ class HomeApp extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
+          actions: [
+            IconButton(
+              icon: isTypeList == false
+                  ? Icon(Icons.grid_view_sharp)
+                  : Icon(Icons.list),
+              onPressed: () async {
+                setState(() {
+                  isTypeList = !isTypeList;
+                });
+                setState(() {
+                  IsLoading = true;
+                });
+
+                await Future.delayed(const Duration(seconds: 5));
+
+                setState(() {
+                  IsLoading = false;
+                });
+              },
+            )
+          ],
         ),
         body: SingleChildScrollView(
           physics: ScrollPhysics(),
@@ -178,7 +207,7 @@ class HomeApp extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 10, left: 15),
                 child: Text(
-                  "Hi, $getName",
+                  "Hi, ${widget.getName}",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -192,79 +221,198 @@ class HomeApp extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final itemTourism = tourismPlaceList[index];
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return DetailScreen(itemTourism);
-                          }));
-                        },
-                        child: Card(
-                          elevation: BorderSide.strokeAlignOutside,
-                          borderOnForeground: true,
-                          margin: EdgeInsets.all(4.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(7),
-                                  child: Image.network(itemTourism.imageAsset),
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(9.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          itemTourism.name,
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          itemTourism.location,
-                                          style: TextStyle(fontSize: 11),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          itemTourism.description,
-                                          maxLines: 2,
-                                          style: TextStyle(fontSize: 11),
-                                        )
-                                      ],
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: tourismPlaceList.length,
-                  )
-                ],
-              ),
+              Stack(alignment: Alignment.bottomCenter, children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IsLoading
+                      ? CircularProgressIndicator()
+                      : !isTypeList
+                          ? ListViewBuilder(tourismPlaceList)
+                          : ListGridView(tourismPlaceList),
+                ),
+              ]),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void updateIcon(bool isUpdate) {
+    setState(() {
+      // if (isUpdate){
+      //   return IconButton(
+      //
+      //   )
+      // }
+    });
+  }
+}
+
+class ListViewBuilder extends StatelessWidget {
+  List<TourismPlace> tourismPlaceList;
+
+  ListViewBuilder(this.tourismPlaceList, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final itemTourism = tourismPlaceList[index];
+            return InkWell(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return DetailScreen(itemTourism);
+                }));
+              },
+              child: Card(
+                elevation: BorderSide.strokeAlignOutside,
+                borderOnForeground: true,
+                margin: EdgeInsets.all(4.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: Image.network(itemTourism.imageAsset),
+                      ),
+                    ),
+                    Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.all(9.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                itemTourism.name,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                itemTourism.location,
+                                style: TextStyle(fontSize: 11),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                itemTourism.description,
+                                maxLines: 2,
+                                style: TextStyle(fontSize: 11),
+                              )
+                            ],
+                          ),
+                        ))
+                  ],
+                ),
+              ),
+            );
+          },
+          itemCount: tourismPlaceList.length,
+        )
+      ],
+    );
+  }
+}
+
+class ListGridView extends StatelessWidget {
+  List<TourismPlace> tourismPlaceList;
+
+  ListGridView(this.tourismPlaceList, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: GridView.builder(
+        scrollDirection: Axis.vertical,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, mainAxisSpacing: 2, crossAxisSpacing: 5),
+        itemBuilder: (BuildContext context, int index) {
+          final itemTourism = tourismPlaceList[index];
+          return GridTile(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return DetailScreen(itemTourism);
+                }));
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    elevation: BorderSide.strokeAlignOutside,
+                    borderOnForeground: true,
+                    margin: EdgeInsets.all(4.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(7),
+                            child: Image.network(
+                              itemTourism.imageAsset,
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                              height: 60,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(9.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                itemTourism.name,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                itemTourism.location,
+                                style: TextStyle(fontSize: 11),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                itemTourism.description,
+                                maxLines: 2,
+                                style: TextStyle(fontSize: 11),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: tourismPlaceList.length,
       ),
     );
   }

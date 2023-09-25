@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sub_newbie_dicoding/home.dart';
+import 'package:sub_newbie_dicoding/utils.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({Key? key}) : super(key: key);
@@ -29,6 +30,11 @@ class LoginPageNewContext extends StatefulWidget {
 class _LoginPageNewContextState extends State<LoginPageNewContext> {
   final loginController = TextEditingController();
 
+  String getName = "";
+  String getPassword = "";
+
+  bool IsShowPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,67 +62,79 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Column(
-                  children: [
-                    Container(
-                      child: TextField(
-                        style: TextStyle(fontSize: 13),
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.supervised_user_circle),
-                            border: OutlineInputBorder(),
-                            hintText: "Input your name",
-                            labelText: "Name"),
-                        onChanged: (String value) {
-                          // name = value;
-                          loginController.text = value;
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: TextField(
-                        style: TextStyle(fontSize: 13),
-                        obscureText: true,
-                        obscuringCharacter: "*",
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.remove_red_eye),
-                              onPressed: () {},
-                            ),
-                            border: OutlineInputBorder(),
-                            hintText: "Input your name",
-                            labelText: "Password"),
-                        onChanged: (String value) {
-                          // name = value;
-                          loginController.text = value;
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 40,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return Home(loginController.text);
-                            }));
-
-                            print("mauulah");
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: TextField(
+                          style: TextStyle(fontSize: 13),
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.supervised_user_circle),
+                              border: OutlineInputBorder(),
+                              hintText: "Input your username",
+                              labelText: "Username"),
+                          onChanged: (String value) {
+                            // name = value;
+                            getName = value;
+                            loginController.text = value;
+                            setState(() {});
                           },
-                          child: Text(
-                            "Login",
-                            style: TextStyle(fontSize: 13),
-                          ),
                         ),
                       ),
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: TextField(
+                          style: TextStyle(fontSize: 13),
+                          obscureText: !IsShowPassword,
+                          obscuringCharacter: "*",
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(Icons.remove_red_eye),
+                                onPressed: () {
+                                  setState(() {
+                                    IsShowPassword = !IsShowPassword;
+                                  });
+                                },
+                              ),
+                              border: OutlineInputBorder(),
+                              hintText: "Input your password",
+                              labelText: "Password"),
+                          onChanged: (String value) {
+                            // name = value;
+                            getPassword = value;
+                            loginController.text = value;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              //if else each
+                              getName.isEmpty
+                                  ? showToast("Username Not to be empty")
+                                  : getPassword.isEmpty
+                                      ? showToast("Password Not to be empty")
+                                      : Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                          return Home(loginController.text);
+                                        }));
+                            },
+                            child: Text(
+                              "Login",
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

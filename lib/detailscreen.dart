@@ -17,6 +17,7 @@ class DetailScreen extends StatelessWidget {
         return true;
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Colors.white,
           // appBar: AppBar(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sub_newbie_dicoding/detailscreen.dart';
+import 'package:sub_newbie_dicoding/utils/circular_progress_dialog.dart';
 
 import 'model/tourism_place.dart';
 
@@ -225,7 +226,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IsLoading
-                      ? CircularProgressIndicator()
+                      ? CircularProgress()
                       : !isTypeList
                           ? ListViewBuilder(tourismPlaceList)
                           : ListGridView(tourismPlaceList),

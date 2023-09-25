@@ -91,7 +91,7 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                           decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock),
                               suffixIcon: IconButton(
-                                icon: Icon(Icons.remove_red_eye),
+                                icon: !IsShowPassword ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
                                     IsShowPassword = !IsShowPassword;

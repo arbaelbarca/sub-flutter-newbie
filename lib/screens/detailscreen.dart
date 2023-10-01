@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 
-import 'model/tourism_place.dart';
+import '../model/tourism_place.dart';
 
 class DetailScreen extends StatelessWidget {
   final TourismPlace tourismPlace;

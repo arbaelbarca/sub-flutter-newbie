@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sub_newbie_dicoding/home.dart';
-import 'package:sub_newbie_dicoding/login.dart';
+import 'package:flutter/services.dart';
+import 'package:sub_newbie_dicoding/screens/home.dart';
+import 'package:sub_newbie_dicoding/screens/login.dart';
+import 'package:sub_newbie_dicoding/page/page_first.dart';
+import 'package:sub_newbie_dicoding/page/page_second.dart';
+import 'package:sub_newbie_dicoding/page/page_third.dart';
 
 void main() {
-  runApp(const LoginApp());
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +40,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: LoginApp.nameRoute,
+      routes: {
+        LoginApp.nameRoute: (context) => const LoginApp(),
+        HomePage.nameRoute: (context) => HomePage("home"),
+        PageFirst.nameRoute: (context) => const PageFirst(),
+        PageSecond.nameRoute: (context) => const PageSecond(),
+        PageThird.nameRoute: (context) => const PageThird()
+      },
     );
   }
 }

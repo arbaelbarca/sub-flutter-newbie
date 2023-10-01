@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:sub_newbie_dicoding/detailscreen.dart';
+import 'package:sub_newbie_dicoding/screens/detailscreen.dart';
+import 'package:sub_newbie_dicoding/screens/login.dart';
+import 'package:sub_newbie_dicoding/page/page_first.dart';
 import 'package:sub_newbie_dicoding/utils/circular_progress_dialog.dart';
 
-import 'model/tourism_place.dart';
+import '../model/tourism_place.dart';
 
-class Home extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  static const nameRoute = "/homePage";
+
   final String getName;
 
-  Home(this.getName, {Key? key}) : super(key: key);
+  HomePage(this.getName, {Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   var isTypeList = false;
   var IsLoading = false;
 
@@ -235,18 +239,18 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {  },
+          child: Center(
+              child: IconButton(
+            onPressed: () {
+              Navigator.of(context,rootNavigator: true).pushNamed(PageFirst.nameRoute);
+            },
+            icon: Icon(Icons.next_plan_outlined),
+          )),
+        ),
       ),
     );
-  }
-
-  void updateIcon(bool isUpdate) {
-    setState(() {
-      // if (isUpdate){
-      //   return IconButton(
-      //
-      //   )
-      // }
-    });
   }
 }
 

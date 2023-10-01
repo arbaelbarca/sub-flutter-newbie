@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sub_newbie_dicoding/home.dart';
+import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 
 class LoginApp extends StatefulWidget {
+  static const nameRoute = "/loginPage";
+
   const LoginApp({Key? key}) : super(key: key);
 
   @override
@@ -13,10 +14,8 @@ class LoginApp extends StatefulWidget {
 class _LoginAppState extends State<LoginApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPageNewContext(),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false, home: LoginPageNewContext());
   }
 }
 
@@ -91,7 +90,9 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                           decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock),
                               suffixIcon: IconButton(
-                                icon: !IsShowPassword ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                                icon: !IsShowPassword
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
                                     IsShowPassword = !IsShowPassword;
@@ -121,10 +122,13 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
                                   ? showToast("Username Not to be empty")
                                   : getPassword.isEmpty
                                       ? showToast("Password Not to be empty")
-                                      : Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                          return Home(loginController.text);
-                                        }));
+                                      : Navigator.of(context, rootNavigator: true)
+                                          .pushNamed(HomePage.nameRoute);
+
+                              // Navigator.push(context,
+                              //             MaterialPageRoute(builder: (context) {
+                              //             return Home(loginController.text);
+                              //           }));
                             },
                             child: Text(
                               "Login",

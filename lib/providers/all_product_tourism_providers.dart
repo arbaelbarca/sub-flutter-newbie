@@ -4,6 +4,7 @@ import 'package:sub_newbie_dicoding/model/tourism_place.dart';
 class ProductTourismItem with ChangeNotifier {
   List<TourismPlace> tourismList = [
     TourismPlace(
+      id: "1",
       name: 'Farm House Lembang',
       location: 'Lembang',
       description:
@@ -20,6 +21,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "2",
       name: 'Observatorium Bosscha',
       location: 'Lembang',
       description:
@@ -36,6 +38,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "3",
       name: 'Jalan Asia Afrika',
       location: 'Kota Bandung',
       description:
@@ -52,6 +55,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "4",
       name: 'Stone Garden',
       location: 'Padalarang',
       description:
@@ -68,6 +72,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "5",
       name: 'Taman Film Pasopati',
       location: 'Kota Bandung',
       description:
@@ -84,6 +89,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "6",
       name: 'Museum Geologi',
       location: 'Kota Bandung',
       description:
@@ -100,6 +106,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "7",
       name: 'Floating Market',
       location: 'Lembang',
       description:
@@ -116,6 +123,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "8",
       name: 'Kawah Putih',
       location: 'Ciwidey',
       description:
@@ -132,6 +140,7 @@ class ProductTourismItem with ChangeNotifier {
       ],
     ),
     TourismPlace(
+      id: "9",
       name: 'Ranca Upas',
       location: 'Ciwidey',
       description:

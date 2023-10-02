@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sub_newbie_dicoding/screens/detailscreen.dart';
+import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
 import 'package:sub_newbie_dicoding/screens/login.dart';
 import 'package:sub_newbie_dicoding/page/page_first.dart';
 import 'package:sub_newbie_dicoding/utils/circular_progress_dialog.dart';
@@ -36,24 +37,37 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           actions: [
-            IconButton(
-              icon: isTypeList == false
-                  ? Icon(Icons.grid_view_sharp)
-                  : Icon(Icons.list),
-              onPressed: () async {
-                setState(() {
-                  isTypeList = !isTypeList;
-                });
-                setState(() {
-                  IsLoading = true;
-                });
+            Row(
+              children: [
+                IconButton(
+                  icon: isTypeList == false
+                      ? Icon(Icons.grid_view_sharp)
+                      : Icon(Icons.list),
+                  onPressed: () async {
+                    setState(() {
+                      isTypeList = !isTypeList;
+                    });
+                    setState(() {
+                      IsLoading = true;
+                    });
 
-                await Future.delayed(const Duration(seconds: 5));
+                    await Future.delayed(const Duration(seconds: 5));
 
-                setState(() {
-                  IsLoading = false;
-                });
-              },
+                    setState(() {
+                      IsLoading = false;
+                    });
+                  },
+                ),
+                Badge(
+                  child: IconButton(
+                    icon: Icon(Icons.favorite),
+                    onPressed: () async {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushNamed(FavoriteScreen.nameRoute);
+                    },
+                  ),
+                ),
+              ],
             )
           ],
         ),
@@ -85,11 +99,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {  },
+          onPressed: () {},
           child: Center(
               child: IconButton(
             onPressed: () {
-              Navigator.of(context,rootNavigator: true).pushNamed(PageFirst.nameRoute);
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamed(PageFirst.nameRoute);
             },
             icon: Icon(Icons.next_plan_outlined),
           )),
@@ -98,4 +113,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

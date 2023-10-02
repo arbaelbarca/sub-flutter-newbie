@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/providers/all_product_tourism_providers.dart';
+import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
+import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
 import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/screens/login.dart';
 import 'package:sub_newbie_dicoding/page/page_first.dart';
@@ -20,8 +22,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductTourismItem(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: ProductTourismItem()),
+        ChangeNotifierProvider.value(value: CartItemProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -33,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           LoginApp.nameRoute: (context) => const LoginApp(),
           HomePage.nameRoute: (context) => HomePage("home"),
+          FavoriteScreen.nameRoute: (context) => const FavoriteScreen(),
           PageFirst.nameRoute: (context) => const PageFirst(),
           PageSecond.nameRoute: (context) => const PageSecond(),
           PageThird.nameRoute: (context) => const PageThird()

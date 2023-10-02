@@ -1,4 +1,8 @@
-class TourismPlace {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class TourismPlace with ChangeNotifier {
+  String id;
   String name;
   String location;
   String description;
@@ -9,6 +13,7 @@ class TourismPlace {
   List<String> imageUrls;
 
   TourismPlace({
+    required this.id,
     required this.name,
     required this.location,
     required this.description,
@@ -18,5 +23,5 @@ class TourismPlace {
     required this.imageAsset,
     required this.imageUrls,
   });
-}
 
+}

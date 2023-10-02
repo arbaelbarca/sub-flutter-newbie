@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_newbie_dicoding/model/cart_item_model.dart';
+import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 
 import '../model/tourism_place.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final TourismPlace tourismPlace;
 
-  const DetailScreen(this.tourismPlace, {Key? key}) : super(key: key);
+  DetailScreen(this.tourismPlace, {Key? key}) : super(key: key);
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
+    final getCart = Provider.of<CartItemProvider>(context, listen: false);
+
     return WillPopScope(
       onWillPop: () async {
         // Navigator.pop(context);
@@ -30,7 +42,7 @@ class DetailScreen extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                      tourismPlace.imageAsset,
+                      widget.tourismPlace.imageAsset,
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
                     ),
@@ -73,7 +85,7 @@ class DetailScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.all(5.0),
                             child: Text(
-                              tourismPlace.name,
+                              widget.tourismPlace.name,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                   fontSize: 20,
@@ -84,17 +96,19 @@ class DetailScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.all(5.0),
                             child: Text(
-                              tourismPlace.location,
+                              widget.tourismPlace.location,
                               textAlign: TextAlign.start,
-                              style: TextStyle(fontSize: 12, color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.black),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.all(5.0),
                             child: Text(
-                              tourismPlace.description,
+                              widget.tourismPlace.description,
                               textAlign: TextAlign.start,
-                              style: TextStyle(fontSize: 12, color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.black),
                             ),
                           ),
                         ],
@@ -131,14 +145,15 @@ class DetailScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.all(11),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.calendar_view_day_outlined),
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
                                           child: Center(
                                             child: Text(
-                                              tourismPlace.openDays,
+                                              widget.tourismPlace.openDays,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 12,
@@ -154,7 +169,8 @@ class DetailScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.all(11),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.date_range),
                                         Container(
@@ -162,7 +178,7 @@ class DetailScreen extends StatelessWidget {
                                               top: 10, left: 20, right: 20),
                                           child: Center(
                                             child: Text(
-                                              tourismPlace.openTime,
+                                              widget.tourismPlace.openTime,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 12),
                                             ),
@@ -176,14 +192,15 @@ class DetailScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.all(11),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.price_change),
                                         Container(
                                           margin: EdgeInsets.only(top: 10),
                                           child: Center(
                                             child: Text(
-                                              tourismPlace.ticketPrice,
+                                              widget.tourismPlace.ticketPrice,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 12),
                                             ),
@@ -218,7 +235,7 @@ class DetailScreen extends StatelessWidget {
                     height: 150,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      children: tourismPlace.imageUrls.map((url) {
+                      children: widget.tourismPlace.imageUrls.map((url) {
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: ClipRRect(
@@ -234,9 +251,24 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            tooltip: 'Increment',
-            child: const Icon(Icons.favorite),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Favorite add success"),
+                duration: Duration(milliseconds: 400),
+              ));
+
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+              getCart.addFavorite(
+                  widget.tourismPlace.id,
+                  widget.tourismPlace.imageAsset,
+                  widget.tourismPlace.name,
+                  widget.tourismPlace.description);
+            },
+            child: isFavorite
+                ? Icon(Icons.favorite)
+                : Icon(Icons.favorite_outline),
           ),
         ),
       ),

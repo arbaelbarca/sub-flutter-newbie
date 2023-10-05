@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
@@ -11,6 +13,11 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final getChartItemFav = Provider.of<CartItemProvider>(context);
+
+    var jsonList = jsonEncode(getChartItemFav.chartItems);
+
+    print("respon Getchartitem $jsonList");
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

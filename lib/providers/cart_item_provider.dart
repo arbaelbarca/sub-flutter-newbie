@@ -8,6 +8,7 @@ class CartItemProvider with ChangeNotifier {
 
   void addFavorite(String getId, String getImage, String getTitle, String desc) {
     if (chartItems.containsKey(getId)) {
+      print("respon update");
       chartItems.update(
         getId,
         (value) => CartItemModel(
@@ -18,6 +19,7 @@ class CartItemProvider with ChangeNotifier {
           getId,
           () => CartItemModel(
               id: getId, image: getImage, title: getTitle, description: desc));
+      print("respon Insert ");
     }
     notifyListeners();
   }

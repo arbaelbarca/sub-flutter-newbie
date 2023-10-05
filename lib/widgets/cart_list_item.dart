@@ -42,7 +42,7 @@ class CartListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        cartItemModel.title,
+                        "Name ${cartItemModel.title}",
                         style: const TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.bold),
                       ),

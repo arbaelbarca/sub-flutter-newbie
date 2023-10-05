@@ -260,11 +260,16 @@ class _DetailScreenState extends State<DetailScreen> {
               setState(() {
                 isFavorite = !isFavorite;
               });
-              getCart.addFavorite(
-                  widget.tourismPlace.id,
-                  widget.tourismPlace.imageAsset,
-                  widget.tourismPlace.name,
-                  widget.tourismPlace.description);
+
+              print("respon TourismPlace ${widget.tourismPlace.name}");
+
+              if (isFavorite) {
+                getCart.addFavorite(
+                    widget.tourismPlace.id,
+                    widget.tourismPlace.imageAsset,
+                    widget.tourismPlace.name,
+                    widget.tourismPlace.description);
+              }
             },
             child: isFavorite
                 ? Icon(Icons.favorite)

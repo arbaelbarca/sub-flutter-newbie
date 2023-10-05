@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
 import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 
@@ -37,9 +38,9 @@ class _LoginPageNewContextState extends State<LoginPageNewContext> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("Login"),
+      // ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

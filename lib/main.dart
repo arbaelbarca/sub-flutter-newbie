@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_newbie_dicoding/http/get_singledata_provider_http.dart';
 import 'package:sub_newbie_dicoding/providers/all_product_tourism_providers.dart';
 import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
+import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
 import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
 import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/screens/login.dart';
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: GetSingleDataProviderHttp()),
         ChangeNotifierProvider.value(value: ProductTourismItem()),
         ChangeNotifierProvider.value(value: CartItemProvider()),
       ],
@@ -34,9 +37,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: LoginApp.nameRoute,
+        initialRoute: BottomNavbarPage.nameRoute,
         routes: {
           LoginApp.nameRoute: (context) => const LoginApp(),
+          BottomNavbarPage.nameRoute: (context) => const BottomNavbarPage(),
           HomePage.nameRoute: (context) => HomePage("home"),
           FavoriteScreen.nameRoute: (context) => const FavoriteScreen(),
           PageFirst.nameRoute: (context) => const PageFirst(),

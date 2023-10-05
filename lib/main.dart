@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/http/get_singledata_provider_http.dart';
+import 'package:sub_newbie_dicoding/http/get_user_provider.dart';
 import 'package:sub_newbie_dicoding/providers/all_product_tourism_providers.dart';
 import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
 import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: DataUserListProvider()),
         ChangeNotifierProvider.value(value: GetSingleDataProviderHttp()),
         ChangeNotifierProvider.value(value: ProductTourismItem()),
         ChangeNotifierProvider.value(value: CartItemProvider()),

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/http/get_singledata_statefull_http.dart';
+import 'package:sub_newbie_dicoding/http/get_user_provider.dart';
+import 'package:sub_newbie_dicoding/widgets/user_list_item.dart';
+
+import '../http/get_singledata_provider_http.dart';
 
 class NetworkPage extends StatefulWidget {
   const NetworkPage({super.key});
@@ -12,8 +17,20 @@ class NetworkPage extends StatefulWidget {
 class _NetworkPageState extends State<NetworkPage> {
   @override
   Widget build(BuildContext context) {
-    GetSingleHttpStatefull getSingleHttpStatefull = GetSingleHttpStatefull();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FutureBuilderStatefullList(),
+    );
+  }
+}
 
+class FutureBuilderStatefull extends StatelessWidget {
+  FutureBuilderStatefull({super.key});
+
+  GetSingleHttpStatefull getSingleHttpStatefull = GetSingleHttpStatefull();
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: GetSingleHttpStatefull.getApiSingle("2").then((value) {
         getSingleHttpStatefull = value;
@@ -59,6 +76,53 @@ class _NetworkPageState extends State<NetworkPage> {
           ),
         );
       },
+    );
+  }
+}
+
+class FutureBuilderStatefullList extends StatefulWidget {
+  const FutureBuilderStatefullList({super.key});
+
+  @override
+  State<FutureBuilderStatefullList> createState() => _FutreBuilderStatefState();
+}
+
+class _FutreBuilderStatefState extends State<FutureBuilderStatefullList> {
+  @override
+  void initState() {
+    Provider.of<DataUserListProvider>(context, listen: false).getUserData("2");
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dataUser = Provider.of<DataUserListProvider>(context);
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          physics: ScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: dataUser.isLoading
+                    ? CircularProgressIndicator()
+                    : ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: dataUser.userListModel.data?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return UserPageList(
+                              dataUser.userListModel.data![index]);
+                        },
+                      ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

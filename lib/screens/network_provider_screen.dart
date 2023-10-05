@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/http/get_singledata_provider_http.dart';
+import 'package:sub_newbie_dicoding/widgets/user_list_item.dart';
 
-class NetworkPageProvider extends StatefulWidget {
+class NetworkPageProvider extends StatelessWidget {
+
   const NetworkPageProvider({super.key});
 
-  @override
-  State<NetworkPageProvider> createState() => _NetworkPageProviderState();
-}
-
-class _NetworkPageProviderState extends State<NetworkPageProvider> {
   @override
   Widget build(BuildContext context) {
     final getSingleProviderList =
@@ -25,14 +22,14 @@ class _NetworkPageProviderState extends State<NetworkPageProvider> {
             scrollDirection: Axis.vertical,
             physics: ScrollPhysics(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
                   child: Consumer<GetSingleDataProviderHttp>(
                     builder: (context, value, child) => CircleAvatar(
                       radius: 50,
-                      child: Image.network(value.dataMap["avatar"]),
+                      child: Image.network(value.getDataMap["avatar"]),
                     ),
                   ),
                 ),
@@ -41,7 +38,7 @@ class _NetworkPageProviderState extends State<NetworkPageProvider> {
                   child: Consumer<GetSingleDataProviderHttp>(
                     builder: (context, value, child) {
                       return Text(
-                        "First Name : " + value.dataMap["first_name"],
+                        "First Name : " + value.getDataMap["first_name"],
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       );
@@ -53,7 +50,7 @@ class _NetworkPageProviderState extends State<NetworkPageProvider> {
                   child: Consumer<GetSingleDataProviderHttp>(
                     builder: (context, value, child) {
                       return Text(
-                        "Last Name : " + value.dataMap["last_name"],
+                        "Last Name : " + value.getDataMap["last_name"],
                         style: TextStyle(fontSize: 15),
                       );
                     },

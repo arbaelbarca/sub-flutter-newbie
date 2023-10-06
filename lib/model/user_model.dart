@@ -91,3 +91,13 @@ class Support {
     return data;
   }
 }
+
+
+class DataUserResponse{
+  String name = "";
+  String job = "";
+  String id = "";
+  String createdAt = "";
+
+  DataUserResponse.name(this.name, this.job, this.id, this.createdAt);
+}

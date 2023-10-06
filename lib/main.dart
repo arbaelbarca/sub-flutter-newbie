@@ -12,6 +12,7 @@ import 'package:sub_newbie_dicoding/screens/login.dart';
 import 'package:sub_newbie_dicoding/page/page_first.dart';
 import 'package:sub_newbie_dicoding/page/page_second.dart';
 import 'package:sub_newbie_dicoding/page/page_third.dart';
+import 'package:sub_newbie_dicoding/screens/user_add_form_screen.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
           FavoriteScreen.nameRoute: (context) => const FavoriteScreen(),
           PageFirst.nameRoute: (context) => const PageFirst(),
           PageSecond.nameRoute: (context) => const PageSecond(),
-          PageThird.nameRoute: (context) => const PageThird()
+          PageThird.nameRoute: (context) => const PageThird(),
+          UserAddFormPage.nameRoute: (context) => const UserAddFormPage(),
         },
       ),
     );

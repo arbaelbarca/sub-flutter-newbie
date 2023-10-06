@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/http/get_singledata_statefull_http.dart';
 import 'package:sub_newbie_dicoding/http/get_user_provider.dart';
+import 'package:sub_newbie_dicoding/screens/user_add_form_screen.dart';
 import 'package:sub_newbie_dicoding/widgets/user_list_item.dart';
 
 import '../http/get_singledata_provider_http.dart';
@@ -122,6 +123,17 @@ class _FutreBuilderStatefState extends State<FutureBuilderStatefullList> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Center(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushNamed(UserAddFormPage.nameRoute);
+              },
+              icon: Icon(Icons.add_box),
+            )),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_newbie_dicoding/model/user_data_response.dart';
 import 'package:sub_newbie_dicoding/model/user_model.dart';
+import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
 
 import '../http/get_user_provider.dart';
 import '../utils.dart';
@@ -9,7 +10,9 @@ import '../utils.dart';
 class UserAddFormPage extends StatefulWidget {
   static const nameRoute = "/userAddFormPage";
 
-  const UserAddFormPage({super.key});
+  var getParsingTextField = "";
+
+  UserAddFormPage({super.key});
 
   @override
   State<UserAddFormPage> createState() => _UserAddFormPageState();
@@ -32,7 +35,7 @@ class _UserAddFormPageState extends State<UserAddFormPage> {
   Widget build(BuildContext context) {
     Future<void> postUserData() async {
       var getProviderPostData =
-      Provider.of<DataUserListProvider>(context, listen: false);
+          Provider.of<DataUserListProvider>(context, listen: false);
 
       await getProviderPostData.postUserData(getName.text, getJobs.text);
 
@@ -40,10 +43,11 @@ class _UserAddFormPageState extends State<UserAddFormPage> {
         showToast(
             "Sucess menambahkan data ${getProviderPostData.dataUserResponse.name}");
         dataUserResponse = getProviderPostData.dataUserResponse;
-        setState(() {
-
-        });
-        // Navigator.of(context).pop();
+        setState(() {});
+        final getPageBefore = await Navigator.pushNamed(
+            context, BottomNavbarPage.nameRoute,
+            arguments: getName.text);
+        Navigator.pop(context, getPageBefore);
       }
     }
 
@@ -85,7 +89,9 @@ class _UserAddFormPageState extends State<UserAddFormPage> {
                               prefixIcon: Icon(Icons.supervised_user_circle),
                               border: OutlineInputBorder(),
                               hintText: "Input your username",
-                              labelText: "Username"),
+                              labelText: widget.getParsingTextField.isNotEmpty
+                                  ? widget.getParsingTextField.toString()
+                                  : "Username "),
                           onChanged: (String value) {
                             // name = value;
                             getName.text = value;
@@ -110,9 +116,10 @@ class _UserAddFormPageState extends State<UserAddFormPage> {
                       ),
                       Container(
                           margin: EdgeInsets.only(top: 10),
-                          child: dataUserResponse != null ? Text("resul data " +
-                              dataUserResponse!.name.toString()) : Text("Data Kosong")
-                      )
+                          child: dataUserResponse != null
+                              ? Text("resul data " +
+                                  dataUserResponse!.name.toString())
+                              : Text("Data Kosong"))
                     ],
                   ),
                 ),
@@ -129,8 +136,8 @@ class _UserAddFormPageState extends State<UserAddFormPage> {
                           getName.text.isEmpty
                               ? showToast("Username Not to be empty")
                               : getJobs.text.isEmpty
-                              ? showToast("Jobs Not to be empty")
-                              : postUserData();
+                                  ? showToast("Jobs Not to be empty")
+                                  : postUserData();
                         },
                         child: Text(
                           "Login",

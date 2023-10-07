@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           PageFirst.nameRoute: (context) => const PageFirst(),
           PageSecond.nameRoute: (context) => const PageSecond(),
           PageThird.nameRoute: (context) => const PageThird(),
-          UserAddFormPage.nameRoute: (context) => const UserAddFormPage(),
+          UserAddFormPage.nameRoute: (context) => UserAddFormPage(),
         },
       ),
     );

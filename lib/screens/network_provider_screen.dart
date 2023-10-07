@@ -14,8 +14,8 @@ class _NetworkPageProviderState extends State<NetworkPageProvider> {
 
   @override
   void initState() {
-    Provider.of<GetSingleDataProviderHttp>(context,listen: false).getApiSingle("2");
     super.initState();
+    Provider.of<GetSingleDataProviderHttp>(context,listen: false).getApiSingle("2");
   }
 
   @override

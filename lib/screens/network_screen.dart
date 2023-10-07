@@ -89,10 +89,13 @@ class FutureBuilderStatefullList extends StatefulWidget {
 }
 
 class _FutreBuilderStatefState extends State<FutureBuilderStatefullList> {
+
+  var getTextField = TextEditingController();
+
   @override
   void initState() {
-    Provider.of<DataUserListProvider>(context, listen: false).getUserData("2");
     super.initState();
+    Provider.of<DataUserListProvider>(context, listen: false).getUserData("2");
   }
 
   @override
@@ -107,6 +110,23 @@ class _FutreBuilderStatefState extends State<FutureBuilderStatefullList> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                child: TextField(
+                  style: TextStyle(
+                    fontSize: 15
+                  ),
+                  decoration: InputDecoration(
+                    hintText: "Input field"
+                  ),
+                  onChanged: (value) {
+                    getTextField.text = value;
+                    setState(() {
+
+                    });
+                  },
+                ),
+              ),
               Container(
                 child: dataUser.isLoading
                     ? CircularProgressIndicator()

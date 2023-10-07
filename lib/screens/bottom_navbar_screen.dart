@@ -35,6 +35,7 @@ class _BottomNavbarPageState extends State<BottomNavbarPage> {
     LoginApp(),
     NetworkPage(),
     NetworkPageProvider(),
+    PageFirst()
   ];
 
   void _onItemTapped(int index) {
@@ -65,10 +66,17 @@ class _BottomNavbarPageState extends State<BottomNavbarPage> {
                 icon: Icon(Icons.school),
                 label: 'Network provider',
               ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.school),
+                label: 'Argument',
+              ),
             ],
+            enableFeedback: true,
+            elevation: 20,
+            type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped),
+            onTap: _onItemTapped)
       ),
     );
   }

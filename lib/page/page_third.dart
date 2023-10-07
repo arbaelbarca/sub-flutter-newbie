@@ -26,6 +26,12 @@ class _PageThirdState extends State<PageThird> {
     super.didChangeDependencies();
   }
 
+  void sendBackData() async {
+    final pushBack = await Navigator.pushReplacementNamed(context, PageSecond.nameRoute,
+        arguments: parsingArgument.text);
+    Navigator.pop(context, pushBack);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,8 +56,8 @@ class _PageThirdState extends State<PageThird> {
                   child: Text(
                     "Dapat data : " + getTextFromPage,
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
@@ -62,8 +68,8 @@ class _PageThirdState extends State<PageThird> {
                       parsingArgument.text = value;
                     },
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Input balik data"
+                        border: OutlineInputBorder(),
+                        hintText: "Input balik data"
                     ),
                   ),
                 ),
@@ -72,8 +78,7 @@ class _PageThirdState extends State<PageThird> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, PageSecond.nameRoute,
-                          arguments: parsingArgument.text);
+                      sendBackData();
                     },
                     child: Text("Send back"),
                   ),

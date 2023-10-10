@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
 import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 

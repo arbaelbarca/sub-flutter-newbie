@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_newbie_dicoding/http/get_singledata_provider_http.dart';
 import 'package:sub_newbie_dicoding/http/get_user_provider.dart';
+import 'package:sub_newbie_dicoding/page/page_first.dart';
+import 'package:sub_newbie_dicoding/page/page_second.dart';
+import 'package:sub_newbie_dicoding/page/page_third.dart';
 import 'package:sub_newbie_dicoding/providers/all_product_tourism_providers.dart';
 import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
 import 'package:sub_newbie_dicoding/screens/bottom_navbar_screen.dart';
 import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
 import 'package:sub_newbie_dicoding/screens/home.dart';
 import 'package:sub_newbie_dicoding/screens/login.dart';
-import 'package:sub_newbie_dicoding/page/page_first.dart';
-import 'package:sub_newbie_dicoding/page/page_second.dart';
-import 'package:sub_newbie_dicoding/page/page_third.dart';
 import 'package:sub_newbie_dicoding/screens/user_add_form_screen.dart';
+import 'package:sub_newbie_dicoding/widgets/themes.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +21,49 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
+  late bool isLightDark = false;
+
+  late SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    print("respon IniState()");
+    super.initState();
+    initPreferences();
+  }
+
+  initPreferences() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {});
+  }
+
+  ThemeData getIsThemePreference() {
+    ThemeData theme;
+    var getIsDark = sharedPreferences.getBool("themeData");
+    print("respon Isdark " + getIsDark.toString());
+    if (getIsDark.toString() == "true") {
+      theme = ThemeUtils().darkTheme;
+      isLightDark = true;
+    } else {
+      theme = ThemeUtils().lightTheme;
+      isLightDark = false;
+    }
+
+    setState(() {});
+
+    return theme;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -36,10 +76,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: getIsThemePreference(),
         initialRoute: BottomNavbarPage.nameRoute,
         routes: {
           LoginApp.nameRoute: (context) => const LoginApp(),

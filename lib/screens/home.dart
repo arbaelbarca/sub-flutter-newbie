@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sub_newbie_dicoding/screens/detailscreen.dart';
-import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
-import 'package:sub_newbie_dicoding/screens/login.dart';
 import 'package:sub_newbie_dicoding/page/page_first.dart';
-import 'package:sub_newbie_dicoding/utils/circular_progress_dialog.dart';
+import 'package:sub_newbie_dicoding/screens/favorite_screens.dart';
 
-import '../model/tourism_place.dart';
 import '../widgets/listview_widgets.dart';
 
 class HomePage extends StatefulWidget {

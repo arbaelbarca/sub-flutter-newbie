@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sub_newbie_dicoding/model/cart_item_model.dart';
 import 'package:sub_newbie_dicoding/providers/cart_item_provider.dart';
 import 'package:sub_newbie_dicoding/utils.dart';
 

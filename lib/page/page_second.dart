@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sub_newbie_dicoding/page/page_third.dart';
 
@@ -16,14 +15,15 @@ class _PageSecondState extends State<PageSecond> {
 
   @override
   void didChangeDependencies() {
-    String getBackData = ModalRoute.of(context)?.settings.arguments == null ? "" : ModalRoute.of(context)?.settings.arguments as String;
+    String getBackData = ModalRoute.of(context)?.settings.arguments == null
+        ? ""
+        : ModalRoute.of(context)?.settings.arguments as String;
     getData = getBackData;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-
     var getTextField = TextEditingController();
 
     return MaterialApp(
@@ -49,8 +49,8 @@ class _PageSecondState extends State<PageSecond> {
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      label: getData!.isNotEmpty
-                          ? Text("Dapat data balik : " + getData!)
+                      label: getData.isNotEmpty
+                          ? Text("Dapat data balik : ${getData}")
                           : Text("Input data ")),
                 ),
               )
